@@ -1,7 +1,6 @@
 name: Luka Bradeško, Bloomberg L.P., Solvesall d.o.o., Kobobo s.p.
 markdown: kramdown
 highlighter: rouge
-theme: jekyll-theme-minimal
 
 kramdown:
   input: GFM
