@@ -10,11 +10,9 @@ Let's say our requirement is to have a card with the following shadow attributes
 * `blur = 12`
 * `color = #3C000000`
 
-In theory the `blur` could be re-created with the custom set of XML shapes, but this would take unreasonably big amount of time. Better approach is:
+In theory the `blur` could be re-created with the custom set of XML shapes, but this would take unreasonably big amount of time. Better approach is to first generate the `9-patch` image using [online generator](http://inloop.github.io/shadow4android/), and copy it to `drawable/shadow.9.png`
 
-1. Generate the `9-patch` image using [online generator](http://inloop.github.io/shadow4android/), and copy it to `drawable/shadow.9.png`
-
-2. Create the `drawable/custom_shadow.xml` which consists of the image and a custom background:
+Create the `drawable/custom_shadow.xml` which consists of the image and a custom background:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
