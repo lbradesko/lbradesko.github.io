@@ -5,7 +5,7 @@ date: 2018-08-11
 ---
 Android elements (especially lower than API 21) does not support shadows, except if using [CardView](https://developer.android.com/guide/topics/ui/layout/cardview) While CardView gets the `elevation` attribute, if the requirement is to  customize or control the shadow, this does not do the trick.
 
-Let's say our requirement is to have a card with the following shadow attributes (comming from Adobe XD):
+Let's say our requirement is to have a card with the following shadow attributes (coming from Adobe XD):
 * `y = 6`
 * `blur = 12`
 * `color = #3C000000`
