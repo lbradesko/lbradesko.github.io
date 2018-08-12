@@ -31,5 +31,8 @@ Then create the `drawable/custom_shadow.xml` which consists of the image and a c
 
 And finally set the `custom_shadow.xml` as background of the view:
 ```xml
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_shadow"/>
 ```
