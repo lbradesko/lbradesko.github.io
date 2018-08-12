@@ -10,22 +10,18 @@ Let's say our requirement is to have a card with the following shadow attributes
 * `blur = 12`
 * `color = #3C000000`
 
-First we create the `drawable/shadow.xml`:
+In theory the `blur` could be re-created with the custom set of XML shapes, but this would take unreasonably big amount of time. Better approach is:
+1. Generate the `9-patch` image using [online generator](http://inloop.github.io/shadow4android/), and copy it to `drawable/shadow.9.png`
+2. Create the `drawable/custom_shadow.xml` which consists of the image and a custom background:
 ```xml
-<shape>
-        <!-- set the shadow color here -->
-        <stroke
-            android:width="2dp"
-            android:color="#7000" />
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+    <item android:drawable="@drawable/shadow" />
 
-        <!-- setting the thickness of shadow (positive value will give shadow on that side) -->
-
-        <padding
-            android:bottom="2dp"
-            android:left="2dp"
-            android:right="-1dp"
-            android:top="-1dp" />
-
-        <corners android:radius="3dp" />
-    </shape>
+    <item>
+        <shape android:shape="rectangle" android:padding="15dp">
+            <solid android:color="?attr/card_background_color"/>
+        </shape>
+    </item>
+</layer-list>
 ```
