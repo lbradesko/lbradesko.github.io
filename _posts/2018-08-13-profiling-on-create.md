@@ -21,7 +21,7 @@ When you compile and run this, the tracer will create a `/sdcard/app-package/mai
 adb pull /sdcard/yourapppackage/main.trace
 ```
 
-If you cannot find the file, you can `"ssh"` into the system and find it:
+If you cannot find the file, you can `"ssh"` into the phone and find it:
 ```bash
 adb shell
 cd sdcard/
