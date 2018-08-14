@@ -1,38 +1,33 @@
 ---
 layout: post
-title: "Profiling onCreate"
-date: 2018-08-11
+title: "Android: Profiling onCreate()"
+date: 2018-08-13
 ---
-Android elements (especially lower than API 21) does not support shadows, except if using [CardView](https://developer.android.com/guide/topics/ui/layout/cardview) While CardView gets the `elevation` attribute, if the requirement is to  customize or control the shadow, this does not do the trick.
 
-Let's say our requirement is to have a card with the following shadow attributes (coming from Adobe XD):
-* `y = 6`
-* `blur = 12`
-* `color = #3C000000`
+While there is a lot of information on how ot use Android Studio's profiler (`Run-> Profile App`, then `record`) to measure where the execution time is spend in yor app, this cannot really measure cold start time (first `onCreate()`), since you cannot press record before it is actually started.
 
-In theory the `blur` could be re-created with the custom set of XML shapes, but this would take unreasonably big amount of time. 
+To do this, the easiest and most accurate aproach seems to be tu use the `Debug.startMethodTracing()` and `Debug.stopMethodTracing()`. Example:
 
-Better approach is to first generate the `9-patch` image using [online generator](http://inloop.github.io/shadow4android/), and copy it to `drawable/shadow.9.png`
-
-Then create the `drawable/custom_shadow.xml` which consists of the image and a custom background:
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
-    <item android:drawable="@drawable/shadow" />
-
-    <item>
-        <shape android:shape="rectangle" android:padding="15dp">
-            <solid android:color="?attr/card_background_color"/>
-        </shape>
-    </item>
-</layer-list>
+```Java
+ @Override
+protected void onCreate(Bundle savedInstanceState) {
+    Debug.startMethodTracing("main");
+    //do some work
+    Debug.stopMethodTracing();
+}
 ```
 
-And finally set the `custom_shadow.xml` as background of the view:
-```xml
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/card_shadow"/>
+When you compile and run this, the tracer will create a `/sdcard/app-package/main.trace` file. To get the file, you need to have adb in your `PATH` env, then pull it to your current folder:
+```bash
+adb pull /sdcard/yourapppackage/main.trace
 ```
+
+If you cannot find the file, you can `"ssh"` into the system and find it:
+```
+adb shell
+cd sdcard/
+find | grep .trace
+```
+This will give you the exact location of the file.
+
+Once you have the file, simply open it with Android Studio: `File->Open`, sort it by Inclusive Time and expore.
