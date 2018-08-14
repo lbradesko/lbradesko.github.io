@@ -7,7 +7,6 @@ date: 2018-08-13
 While there is a lot of information on how ot use Android Studio's profiler (`Run-> Profile App`, then `record`) to measure where the execution time is spend in yor app, this cannot really measure cold start time (first `onCreate()`), since you cannot press record before it is actually started.
 
 To do this, the easiest and most accurate aproach seems to be tu use the `Debug.startMethodTracing()` and `Debug.stopMethodTracing()`. Example:
-
 ```Java
  @Override
 protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +22,7 @@ adb pull /sdcard/yourapppackage/main.trace
 ```
 
 If you cannot find the file, you can `"ssh"` into the system and find it:
-```
+```bash
 adb shell
 cd sdcard/
 find | grep .trace
