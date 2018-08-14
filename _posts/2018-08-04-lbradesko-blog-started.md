@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Custom shadows for Android Views"
+title: "Android: Custom shadows for Views"
 date: 2018-08-11
 ---
 Android elements (especially lower than API 21) does not support shadows, except if using [CardView](https://developer.android.com/guide/topics/ui/layout/cardview) While CardView gets the `elevation` attribute, if the requirement is to  customize or control the shadow, this does not do the trick.
